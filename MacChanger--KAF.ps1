@@ -3,10 +3,10 @@
 #Run it as Administrator 
 
 
-
-#$t = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
-#add-type -name win -member $t -namespace native
-#[native.win]::ShowWindow(([System.Diagnostics.Process]::GetCurrentProcess() | Get-Process).MainWindowHandle, 0)
+# To Hide The PowerShell Window
+$t = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
+add-type -name win -member $t -namespace native
+[native.win]::ShowWindow(([System.Diagnostics.Process]::GetCurrentProcess() | Get-Process).MainWindowHandle, 0)
 
 
 
@@ -31,7 +31,6 @@ $Tab_control.Width = $Main_form.Width
 $Tab_control.Height = $Main_form.Height
 $Main_form.Controls.Add($Tab_control)
 
-
 #Creat Mac Changing Tab
 $Mac_change_tab = New-Object System.Windows.Forms.TabPage
 $Mac_change_tab.Text = "Mac Changer"
@@ -46,7 +45,6 @@ $DB_tab.Height = $Main_form.Height
 $DB_tab.Text = "DB Mac"
 $Tab_control.Controls.Add($DB_tab) 
 
-
 $Adapters = Get-WmiObject win32_networkadapterconfiguration | where{$_.macaddress -like "*:*"} | select macaddress,description,settingid
 $i = 1
 
@@ -60,7 +58,6 @@ $label_combo.Padding = 7
 $label_combo.Text = "Network Adapters "
 $Mac_change_tab.Controls.Add($label_combo)
 
-
 # Creat The Combo List
 $como = New-Object System.Windows.Forms.ComboBox
 $como.Width = 300
@@ -68,17 +65,9 @@ $como.Left = 120
 $como.top = 65
 $Mac_change_tab.Controls.Add($como)
 
-
 # Function Which adds The Elements to The list 
 
 function creat_combolist(){
- #$check_box = New-Object System.Windows.Forms.CheckBox
- #$check_box.text = $Adapter.description
- #$check_box.Width = 300
- #$check_box.Height = 40
- #$check_box.TabIndex = 2
- #$check_box.top = 30 + ( $i * 40)
- #$Mac_change_tab.Controls.Add($check_box)
  $como.Items.Add($Adapter.description)
 }
 [System.GC]::Collect()
@@ -123,7 +112,6 @@ $statu_textbox.Left = 125
 $statu_textbox.ReadOnly =$true
 $Mac_change_tab.Controls.Add($statu_textbox)
 
-
 #Creat a Label for ip
 $ip = New-Object System.Windows.Forms.Label
 $ip.Width = 100
@@ -151,14 +139,12 @@ $como.add_SelectedValueChanged({
                         $statu_textbox.Text = "Active"
                         $ip_textbox.Text = $Adapter.ipaddress.split(" ")[0]
 
-
                 }
                 else{
         
                         $statu_textbox.Text = "NOtActive"
                         $ip_textbox.Text = "Null"
                 }
-
 
 })
 [System.GC]::Collect()
@@ -265,7 +251,6 @@ $creat = foreach ( $option in $options){
 }
 
 
-
 [System.GC]::Collect()
 #Creat timer randmon mac checkbox
 $timer_checkbox = New-Object System.Windows.Forms.CheckBox
@@ -292,9 +277,6 @@ $Mac_change_tab.Controls.Add($timer_checkbox)
           $r++
           $delay_label
         }
-
-        
-   
 
    [System.GC]::Collect()
         #Creat num
@@ -348,8 +330,6 @@ $Mac_change_tab.Controls.Add($timer_checkbox)
        
         [System.GC]::Collect()
 
-
-        
         #Creat The DB Section 
 
         #Creat NIC  Name Label 
@@ -466,9 +446,5 @@ $Admin.font = New-Object System.Drawing.Font ([System.Drawing.FontFamily]::Gener
 $Mac_change_tab.Controls.Add($Admin)
 
 }
-# When i Put it here under The function it displayed only the last one , it should be above the fucntion
-#$como = New-Object System.Windows.Forms.ComboBox
-#$como.Width = 300
-#$Mac_change_tab.Controls.Add($como)
 $Main_form.ShowDialog()
 [System.GC]::Collect()
