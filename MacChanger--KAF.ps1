@@ -202,7 +202,7 @@ $Mac_change_tab.Controls.Add($random_mac_button)
 function random(){
      $B = Get-Date
      $C = $B.Hour + $B.Second + $B.Millisecond + $B.Minute
-     $A = Get-Random -SetSeed $C -Minimum 10000000000000 -Maximum 99999999999999
+     $A = Get-Random -SetSeed $C -Minimum 60000000000000 -Maximum 99999999999999
      $A
      return 
 }
@@ -401,7 +401,7 @@ $Mac_change_tab.Controls.Add($timer_checkbox)
         function random_DUI(){
                  $B = Get-Date
                  $C = $B.Hour + $B.Second + $B.Millisecond + $B.Minute
-                 $A = Get-Random -SetSeed $C -Minimum 1000000 -Maximum 9999999
+                 $A = Get-Random -SetSeed $C -Minimum 6000000 -Maximum 9999999
                  $A
                  return 
         }
